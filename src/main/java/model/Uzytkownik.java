@@ -10,13 +10,15 @@ public class Uzytkownik {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    private int user;
+    private int id;
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
     private String email;
     @OneToMany(mappedBy = "uzytkownik", cascade = CascadeType.ALL,orphanRemoval = true)
     List<Konto> konta;
+
+
 
 
 

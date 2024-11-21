@@ -1,8 +1,8 @@
 package model;
 
 import jakarta.persistence.*;
+import model.enums.TypTransakcjiEnum;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.jpa.repository.Temporal;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -40,4 +40,59 @@ public class Transakcja {
     public Transakcja() {
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getOpis() {
+        return opis;
+    }
+
+    public void setOpis(String opis) {
+        this.opis = opis;
+    }
+
+    public BigDecimal getKwota() {
+        return kwota;
+    }
+
+    public void setKwota(BigDecimal kwota) {
+        this.kwota = kwota;
+    }
+
+    public TypTransakcjiEnum getTyp() {
+        return typ;
+    }
+
+    public void setTyp(TypTransakcjiEnum typ) {
+        this.typ = typ;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public Kategoria getKategoria() {
+        return kategoria;
+    }
+
+    public void setKategoria(Kategoria kategoria) {
+        this.kategoria = kategoria;
+    }
+
+    public Konto getKonto() {
+        return konto;
+    }
+
+    public void setKonto(Konto konto) {
+        this.konto = konto;
+    }
 }

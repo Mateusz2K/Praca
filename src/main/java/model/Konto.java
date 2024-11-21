@@ -1,6 +1,8 @@
 package model;
 
 import jakarta.persistence.*;
+import model.enums.TypKontaEnum;
+import model.enums.WalutaEnum;
 
 import java.util.Date;
 import java.util.List;

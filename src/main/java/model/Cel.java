@@ -56,7 +56,6 @@ public class Cel {
         this.id = id;
     }
 
-
     public String getNazwa() {
         return nazwa;
     }
