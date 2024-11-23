@@ -35,11 +35,24 @@ public class Konto {
     @Column(nullable = false, updatable = false) // Pole nieedytowalne po utworzeniu
     @Temporal(TemporalType.TIMESTAMP) // Dla zgodności z typem TIMESTAMP w bazie
     private Date dataUtworzenia = new Date(); // Ustawienie domyślnej wartości
-
+    //cele
     @OneToMany(mappedBy = "konto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cel> cele;
-
-
+    //@XzasadyOczcdzędzania
+    @OneToMany(mappedBy = "konto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ZasadyOszczedzania> zasadyOszczedzania;
+    //zasadyPowiadomien
+    @OneToMany(mappedBy = "konto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ZasadyPowiadomien> zasadyPowiadomien;
+    //rejestr
+    @OneToMany(mappedBy = "konto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Rejestr> rejestry;
+    //transakcja
+    @OneToMany(mappedBy = "konto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Transakcja> transakcje;
+    //historia Konta
+    @OneToMany(mappedBy = "konto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<HistoriaKonta> historieKont;
     // Gettery i Settery
     public int getId() {
         return id;

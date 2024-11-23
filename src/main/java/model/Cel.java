@@ -5,6 +5,7 @@ import org.springframework.lang.NonNull;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "cel")
@@ -32,6 +33,15 @@ public class Cel {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "konto_id", nullable = false)
     private Konto konto;
+    //połączenie raportów oszczedności
+    @OneToMany(mappedBy = "cel", cascade = {CascadeType.DETACH,CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST}, orphanRemoval = false)
+    private List<RaportOszczednosci> raportyOszczednosci;
+    //połaczenie zasad Oszcedzania bez usuwanych rekordów
+    @OneToMany(mappedBy = "cel", cascade = {CascadeType.DETACH,CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST}, orphanRemoval = false)
+    private List<ZasadyOszczedzania> zasadyOszczedzania;
+    //połaczenie zasad Powiadomien
+    @OneToMany(mappedBy = "cel", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ZasadyPowiadomien> zasadyPowiadomien;
 
     // Konstruktor domyślny
     public Cel() {
