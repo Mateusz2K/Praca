@@ -14,6 +14,7 @@ public class Powiadomienia {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime wygenerowany_czas;
     private boolean czyPrzeczytane = false;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "urzytkownik_id")
     private Uzytkownik uzytkownik;
@@ -79,5 +80,6 @@ public class Powiadomienia {
     public void setTypPowiadomienia(TypPowiadomienia typPowiadomienia) {
         this.typPowiadomienia = typPowiadomienia;
     }
+
 
 }

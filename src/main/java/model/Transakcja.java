@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "transakcja")
@@ -21,12 +22,18 @@ public class Transakcja {
     private TypTransakcjiEnum typ;
     @Column(nullable = false)
     private Date data = new Date();
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "kategoria", nullable = false) // poprawiona literówka
     private Kategoria kategoria;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "konto", nullable = false) // poprawiona literówka
     private Konto konto;
+
+    //historie Kont połączenie forgein
+    @OneToMany(mappedBy = "transakcja", cascade = {CascadeType.DETACH,CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST}, orphanRemoval = false)
+    private List<HistoriaKonta> historieKonta;
+
 
     public Transakcja(String opis, BigDecimal kwota, TypTransakcjiEnum typ, Date data, Kategoria kategoria, Konto konto) {
         this.opis = opis;
@@ -94,5 +101,13 @@ public class Transakcja {
 
     public void setKonto(Konto konto) {
         this.konto = konto;
+    }
+
+    public List<HistoriaKonta> getHistorieKonta() {
+        return historieKonta;
+    }
+
+    public void setHistorieKonta(List<HistoriaKonta> historieKonta) {
+        this.historieKonta = historieKonta;
     }
 }

@@ -18,8 +18,9 @@ public class ZasadyOszczedzania {
     private BigDecimal kwota;
     @Column(precision = 15, scale = 2)
     private BigDecimal kwotaOdProcenta;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cel_id")
+    @JoinColumn(name = "cel_id",nullable = false)
     private Cel cel;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "odbiorca_id")

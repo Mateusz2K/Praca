@@ -13,6 +13,7 @@ public class ZasadyPowiadomien {
     private RegulaEnum regula;
     private double wartpscLimit;
     private boolean czyAktywna;
+
     @JoinColumn(name = "urzytkownik_id", nullable = false)
     @ManyToOne(fetch = FetchType.EAGER)
     private Uzytkownik uzytkownik;

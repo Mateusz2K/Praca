@@ -19,6 +19,7 @@ public class HistoriaKonta {
     private BigDecimal kwotaZmiany;
     @Column(precision = 15, scale = 2)
     private BigDecimal bilans;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "konto_id")
     private Konto konto;

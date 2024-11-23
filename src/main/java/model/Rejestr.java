@@ -18,6 +18,7 @@ public class Rejestr {
     private Date dataDo;
     @Column(precision = 15, scale = 2)
     private BigDecimal limitBudzet;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "konto_id", nullable = false)
     private Konto konto;
@@ -83,4 +84,5 @@ public class Rejestr {
     public void setKategoria(Kategoria kategoria) {
         this.kategoria = kategoria;
     }
+
 }

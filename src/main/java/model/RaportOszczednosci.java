@@ -14,6 +14,7 @@ public class RaportOszczednosci {
     private LocalDateTime terminRaportu;
     @Column(precision = 15, scale = 2)
     private BigDecimal zaosczedzonaKwota;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "urzytkownik_id", nullable = false)
     private Uzytkownik uzytkownik;
