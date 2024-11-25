@@ -1,8 +1,7 @@
-package model;
+package modele;
 
 import jakarta.persistence.*;
-import model.enums.TypTransakcjiEnum;
-import org.springframework.data.annotation.Id;
+import modele.enumeracje.TypTransakcjiEnum;
 
 import java.math.BigDecimal;
 import java.util.Date;

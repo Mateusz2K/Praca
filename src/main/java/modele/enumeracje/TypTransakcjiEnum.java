@@ -1,4 +1,4 @@
-package model.enums;
+package modele.enumeracje;
 
 public enum TypTransakcjiEnum {
     KOSZT, PRZYCHÓD

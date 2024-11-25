@@ -1,4 +1,4 @@
-package model;
+package modele;
 
 import jakarta.persistence.*;
 
@@ -16,7 +16,7 @@ public class Powiadomienia {
     private boolean czyPrzeczytane = false;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "urzytkownik_id")
+    @JoinColumn(name = "urytkownik_id")
     private Uzytkownik uzytkownik;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "typ_powiadomienia_id")

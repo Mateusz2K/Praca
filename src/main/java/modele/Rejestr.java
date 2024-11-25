@@ -1,7 +1,6 @@
-package model;
+package modele;
 
 import jakarta.persistence.*;
-import org.springframework.data.jpa.repository.Temporal;
 
 import java.math.BigDecimal;
 import java.util.Date;

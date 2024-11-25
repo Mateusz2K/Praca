@@ -1,4 +1,4 @@
-package model;
+package modele;
 
 import jakarta.persistence.*;
 
@@ -16,7 +16,7 @@ public class TypPowiadomienia {
     private String opis;
 
     //połaczenie forgein powiadomienia
-    @OneToMany(mappedBy = "powiadomienie", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "typPowiadomienia", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Powiadomienia> powiadomienia;
 
     public TypPowiadomienia(String nazwa, String opis) {

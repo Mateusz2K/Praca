@@ -1,4 +1,4 @@
-package model;
+package modele;
 
 import jakarta.persistence.*;
 
@@ -16,7 +16,7 @@ public class RaportOszczednosci {
     private BigDecimal zaosczedzonaKwota;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "urzytkownik_id", nullable = false)
+    @JoinColumn(name = "uzytkownik_id", nullable = false)
     private Uzytkownik uzytkownik;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cel_id" , nullable = false)

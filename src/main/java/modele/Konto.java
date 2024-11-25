@@ -1,10 +1,11 @@
-package model;
+package modele;
 
 import jakarta.persistence.*;
-import model.enums.TypKontaEnum;
-import model.enums.WalutaEnum;
+import modele.enumeracje.TypKontaEnum;
+import modele.enumeracje.WalutaEnum;
 
-import java.util.Date;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -17,7 +18,7 @@ public class Konto {
     private int id;
     private String nazwa;
     @Column(precision = 15, scale = 2)
-    private double bilans;
+    private BigDecimal bilans;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING) // Przechowywanie wartości jako tekst w bazie
     private TypKontaEnum typ;
@@ -26,18 +27,20 @@ public class Konto {
     private WalutaEnum waluta;
     @Column(nullable = false, updatable = false) // Pole nieedytowalne po utworzeniu
     @Temporal(TemporalType.TIMESTAMP) // Dla zgodności z typem TIMESTAMP w bazie
-    private Date dataUtworzenia = new Date(); // Ustawienie domyślnej wartości
+    private LocalDateTime dataUtworzenia; // Ustawienie domyślnej wartości
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @Column(name = "urzytkownik_id", nullable = false)
+    @JoinColumn(name = "uzytkownik_id", nullable = false)
     private Uzytkownik uzytkownik;
 
     //cele
     @OneToMany(mappedBy = "konto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cel> cele;
     //@XzasadyOczcdzędzania
-    @OneToMany(mappedBy = "konto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ZasadyOszczedzania> zasadyOszczedzania;
+    @OneToMany(mappedBy = "odbiorca", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ZasadyOszczedzania> zasadyOszczedzaniaOdbiorca;
+    @OneToMany(mappedBy = "nadawca", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ZasadyOszczedzania> zasadyOszczedzaniaNadawca;
     //zasadyPowiadomien
     @OneToMany(mappedBy = "konto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ZasadyPowiadomien> zasadyPowiadomien;
@@ -53,7 +56,7 @@ public class Konto {
 
 
 
-    public Konto(String nazwa, double bilans, TypKontaEnum typ, WalutaEnum waluta, Date dataUtworzenia, Uzytkownik uzytkownik) {
+    public Konto(String nazwa, BigDecimal bilans, TypKontaEnum typ, WalutaEnum waluta, LocalDateTime dataUtworzenia, Uzytkownik uzytkownik) {
         this.nazwa = nazwa;
         this.bilans = bilans;
         this.typ = typ;
@@ -87,11 +90,11 @@ public class Konto {
         this.nazwa = nazwa;
     }
 
-    public double getBilans() {
+    public BigDecimal getBilans() {
         return bilans;
     }
 
-    public void setBilans(double bilans) {
+    public void setBilans(BigDecimal bilans) {
         this.bilans = bilans;
     }
 
@@ -111,11 +114,11 @@ public class Konto {
         this.waluta = waluta;
     }
 
-    public Date getDataUtworzenia() {
+    public LocalDateTime getDataUtworzenia() {
         return dataUtworzenia;
     }
 
-    public void setDataUtworzenia(Date dataUtworzenia) {
+    public void setDataUtworzenia(LocalDateTime dataUtworzenia) {
         this.dataUtworzenia = dataUtworzenia;
     }
 
@@ -127,12 +130,20 @@ public class Konto {
         this.cele = cele;
     }
 
-    public List<ZasadyOszczedzania> getZasadyOszczedzania() {
-        return zasadyOszczedzania;
+    public List<ZasadyOszczedzania> getZasadyOszczedzaniaOdbiorca() {
+        return zasadyOszczedzaniaOdbiorca;
     }
 
-    public void setZasadyOszczedzania(List<ZasadyOszczedzania> zasadyOszczedzania) {
-        this.zasadyOszczedzania = zasadyOszczedzania;
+    public void setZasadyOszczedzaniaOdbiorca(List<ZasadyOszczedzania> zasadyOszczedzaniaOdbiorca) {
+        this.zasadyOszczedzaniaOdbiorca = zasadyOszczedzaniaOdbiorca;
+    }
+
+    public List<ZasadyOszczedzania> getZasadyOszczedzaniaNadawca() {
+        return zasadyOszczedzaniaNadawca;
+    }
+
+    public void setZasadyOszczedzaniaNadawca(List<ZasadyOszczedzania> zasadyOszczedzaniaNadawca) {
+        this.zasadyOszczedzaniaNadawca = zasadyOszczedzaniaNadawca;
     }
 
     public List<ZasadyPowiadomien> getZasadyPowiadomien() {

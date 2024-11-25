@@ -1,11 +1,9 @@
-package model;
+package modele;
 
 import jakarta.persistence.*;
-import org.springframework.lang.NonNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -13,7 +11,7 @@ import java.util.List;
 public class Cel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column(nullable = false)
     private String nazwa;

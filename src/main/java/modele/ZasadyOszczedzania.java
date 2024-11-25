@@ -1,7 +1,7 @@
-package model;
+package modele;
 
 import jakarta.persistence.*;
-import model.enums.OkresowoscEnum;
+import modele.enumeracje.OkresowoscEnum;
 
 import java.math.BigDecimal;
 

@@ -1,7 +1,7 @@
-package model;
+package modele;
 
 import jakarta.persistence.*;
-import model.enums.RegulaEnum;
+import modele.enumeracje.RegulaEnum;
 
 @Entity
 @Table(name = "zasadyPowiadomien")
@@ -14,7 +14,7 @@ public class ZasadyPowiadomien {
     private double wartpscLimit;
     private boolean czyAktywna;
 
-    @JoinColumn(name = "urzytkownik_id", nullable = false)
+    @JoinColumn(name = "uzytkownik_id", nullable = false)
     @ManyToOne(fetch = FetchType.EAGER)
     private Uzytkownik uzytkownik;
     @ManyToOne(fetch = FetchType.EAGER)

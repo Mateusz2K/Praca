@@ -1,7 +1,6 @@
-package model;
+package modele;
 
 import jakarta.persistence.*;
-import org.springframework.lang.NonNull;
 
 import java.util.List;
 
@@ -16,7 +15,7 @@ public class Uzytkownik {
     @Column(nullable = false, unique = true)
     private String email;
     @Column(nullable = false)
-    private String hasło;
+    private String haslo;
 
     //Połączenie Kont
     @OneToMany(mappedBy = "uzytkownik", cascade = CascadeType.ALL,orphanRemoval = true)
@@ -31,10 +30,10 @@ public class Uzytkownik {
     public Uzytkownik() {
     }
 
-    public Uzytkownik(String name, String email, String hasło) {
+    public Uzytkownik(String name, String email, String haslo) {
         this.name = name;
         this.email = email;
-        this.hasło = hasło;
+        this.haslo = haslo;
     }
 
     public int getId() {
@@ -62,11 +61,11 @@ public class Uzytkownik {
     }
 
     public String getHasło() {
-        return hasło;
+        return haslo;
     }
 
-    public void setHasło(String hasło) {
-        this.hasło = hasło;
+    public void setHasło(String haslo) {
+        this.haslo = haslo;
     }
 
     public List<Konto> getKonta() {
