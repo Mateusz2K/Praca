@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import modele.enumeracje.TypTransakcjiEnum;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class Transakcja {
     @Enumerated(EnumType.STRING)
     private TypTransakcjiEnum typ;
     @Column(nullable = false)
-    private Date data = new Date();
+    private LocalDate data;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "kategoria", nullable = false) // poprawiona literówka
@@ -34,7 +35,7 @@ public class Transakcja {
     private List<HistoriaKonta> historieKonta;
 
 
-    public Transakcja(String opis, BigDecimal kwota, TypTransakcjiEnum typ, Date data, Kategoria kategoria, Konto konto) {
+    public Transakcja(String opis, BigDecimal kwota, TypTransakcjiEnum typ, LocalDate data, Kategoria kategoria, Konto konto) {
         this.opis = opis;
         this.kwota = kwota;
         this.typ = typ;
@@ -78,11 +79,11 @@ public class Transakcja {
         this.typ = typ;
     }
 
-    public Date getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 

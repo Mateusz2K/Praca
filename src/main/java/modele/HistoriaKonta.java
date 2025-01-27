@@ -6,16 +6,17 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "historiaKonta")
+@Table(name = "historia_konta")
 public class HistoriaKonta {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @Temporal(TemporalType.TIMESTAMP)
+
+    @Column(name = "data_zmiany",nullable = false, updatable = false, columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime dataZmiany;
-    @Column(precision = 15, scale = 2 )
+    @Column(name = "kwotaZmiany", nullable = false ,precision = 15, scale = 2 )
     private BigDecimal kwotaZmiany;
-    @Column(precision = 15, scale = 2)
+    @Column(name= "bilans",nullable = false, precision = 15, scale = 2)
     private BigDecimal bilans;
 
     @ManyToOne(fetch = FetchType.EAGER)

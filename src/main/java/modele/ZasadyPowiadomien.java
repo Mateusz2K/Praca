@@ -11,7 +11,7 @@ public class ZasadyPowiadomien {
     private int id;
     @Enumerated(EnumType.STRING)
     private RegulaEnum regula;
-    private double wartpscLimit;
+    private double wartoscLimit;
     private boolean czyAktywna;
 
     @JoinColumn(name = "uzytkownik_id", nullable = false)
@@ -24,9 +24,9 @@ public class ZasadyPowiadomien {
     @JoinColumn(name = "cel_id")
     private Cel cel;
 
-    public ZasadyPowiadomien(RegulaEnum regula, double wartpscLimit, boolean czyAktywna, Uzytkownik uzytkownik, Konto konto, Cel cel) {
+    public ZasadyPowiadomien(RegulaEnum regula, double wartoscLimit, boolean czyAktywna, Uzytkownik uzytkownik, Konto konto, Cel cel) {
         this.regula = regula;
-        this.wartpscLimit = wartpscLimit;
+        this.wartoscLimit = wartoscLimit;
         this.czyAktywna = czyAktywna;
         this.uzytkownik = uzytkownik;
         this.konto = konto;
@@ -52,12 +52,12 @@ public class ZasadyPowiadomien {
         this.regula = regula;
     }
 
-    public double getWartpscLimit() {
-        return wartpscLimit;
+    public double getWartoscLimit() {
+        return wartoscLimit;
     }
 
-    public void setWartpscLimit(double wartpscLimit) {
-        this.wartpscLimit = wartpscLimit;
+    public void setWartoscLimit(double wartoscLimit) {
+        this.wartoscLimit = wartoscLimit;
     }
 
     public boolean isCzyAktywna() {

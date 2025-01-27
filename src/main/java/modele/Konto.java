@@ -5,7 +5,10 @@ import modele.enumeracje.TypKontaEnum;
 import modele.enumeracje.WalutaEnum;
 
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 
@@ -17,7 +20,7 @@ public class Konto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nazwa;
-    @Column(precision = 15, scale = 2)
+    @Column(precision = 15, scale = 2, nullable = false, columnDefinition = "DECIMAL(15,2) DEFAULT 0.00")
     private BigDecimal bilans;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING) // Przechowywanie wartości jako tekst w bazie
@@ -25,9 +28,8 @@ public class Konto {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING) // Przechowywanie wartości jako tekst w bazie
     private WalutaEnum waluta;
-    @Column(nullable = false, updatable = false) // Pole nieedytowalne po utworzeniu
-    @Temporal(TemporalType.TIMESTAMP) // Dla zgodności z typem TIMESTAMP w bazie
-    private LocalDateTime dataUtworzenia; // Ustawienie domyślnej wartości
+    @Column(nullable = false, updatable = false, columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime dataUtworzenia;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "uzytkownik_id", nullable = false)
@@ -118,8 +120,8 @@ public class Konto {
         return dataUtworzenia;
     }
 
-    public void setDataUtworzenia(LocalDateTime dataUtworzenia) {
-        this.dataUtworzenia = dataUtworzenia;
+    public void setDataUtworzenia() {
+        this.dataUtworzenia = LocalDateTime.now();
     }
 
     public List<Cel> getCele() {

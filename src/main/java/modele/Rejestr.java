@@ -3,7 +3,10 @@ package modele;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "rejestr")
@@ -12,9 +15,10 @@ public class Rejestr {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column(nullable = false)
-    private Date dataOd;
+    private LocalDate dataOd = LocalDate.now();
+
     @Column(nullable = false)
-    private Date dataDo;
+    private LocalDate dataDo = LocalDate.now().withDayOfMonth(LocalDate.now().lengthOfMonth());
     @Column(precision = 15, scale = 2)
     private BigDecimal limitBudzet;
 
@@ -25,15 +29,17 @@ public class Rejestr {
     @JoinColumn(name = "kategoria_id", nullable = false)
     private Kategoria kategoria;
 
-    public Rejestr(Date dataOd, Date dataDo, BigDecimal limitBudzet, Konto konto, Kategoria kategoria) {
-        this.dataOd = dataOd;
-        this.dataDo = dataDo;
+    public Rejestr( BigDecimal limitBudzet, Konto konto, Kategoria kategoria) {
+        this.dataOd = LocalDate.now(); // Domyślnie bieżąca data
+        this.dataDo = LocalDate.now().withDayOfMonth(LocalDate.now().lengthOfMonth());
         this.limitBudzet = limitBudzet;
         this.konto = konto;
         this.kategoria = kategoria;
     }
 
     public Rejestr() {
+        this.dataOd = LocalDate.now(); // Domyślnie bieżąca data
+        this.dataDo = LocalDate.now().withDayOfMonth(LocalDate.now().lengthOfMonth()); // Ostatni dzień miesiąca
     }
 
     public int getId() {
@@ -44,19 +50,19 @@ public class Rejestr {
         this.id = id;
     }
 
-    public Date getDataOd() {
+    public LocalDate getDataOd() {
         return dataOd;
     }
 
-    public void setDataOd(Date dataOd) {
+    public void setDataOd(LocalDate dataOd) {
         this.dataOd = dataOd;
     }
 
-    public Date getDataDo() {
+    public LocalDate getDataDo() {
         return dataDo;
     }
 
-    public void setDataDo(Date dataDo) {
+    public void setDataDo(LocalDate dataDo) {
         this.dataDo = dataDo;
     }
 

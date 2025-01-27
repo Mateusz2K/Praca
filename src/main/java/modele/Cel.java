@@ -3,7 +3,9 @@ package modele;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -12,14 +14,15 @@ public class Cel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
     private int id;
-    @Column(nullable = false)
+    @Column(name = "nazwa",nullable = false)
     private String nazwa;
-    @Column(nullable = false, precision = 15, scale = 2)
+    @Column(name = "okreslonaKwota",nullable = false, precision = 15, scale = 2)
     private BigDecimal okreslonaKwota;
-    @Column(precision = 15, scale = 2)
+    @Column( name = "zebranaKwota",precision = 15, scale = 2)
     private BigDecimal zebranaKwota = BigDecimal.ZERO;
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false, updatable = false, columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime termin;
 
 
@@ -29,13 +32,13 @@ public class Cel {
 
     //połączenie raportów oszczedności
     @OneToMany(mappedBy = "cel", cascade = {CascadeType.DETACH,CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST}, orphanRemoval = false)
-    private List<RaportOszczednosci> raportyOszczednosci;
+    private List<RaportOszczednosci> raportyOszczednosci = new ArrayList<>();
     //połaczenie zasad Oszcedzania bez usuwanych rekordów
     @OneToMany(mappedBy = "cel", cascade = {CascadeType.DETACH,CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST}, orphanRemoval = false)
-    private List<ZasadyOszczedzania> zasadyOszczedzania;
+    private List<ZasadyOszczedzania> zasadyOszczedzania = new ArrayList<>();
     //połaczenie zasad Powiadomien
     @OneToMany(mappedBy = "cel", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ZasadyPowiadomien> zasadyPowiadomien;
+    private List<ZasadyPowiadomien> zasadyPowiadomien = new ArrayList<>();
 
     // Konstruktor domyślny
     public Cel() {

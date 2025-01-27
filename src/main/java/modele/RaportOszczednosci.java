@@ -3,6 +3,7 @@ package modele;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -11,7 +12,8 @@ public class RaportOszczednosci {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private LocalDateTime terminRaportu;
+    @Column(nullable = false, updatable = false, columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
+    private Timestamp terminRaportu;
     @Column(precision = 15, scale = 2)
     private BigDecimal zaosczedzonaKwota;
 
@@ -22,8 +24,8 @@ public class RaportOszczednosci {
     @JoinColumn(name = "cel_id" , nullable = false)
     private Cel cel;
 
-    public RaportOszczednosci(LocalDateTime terminRaportu, BigDecimal zaosczedzonaKwota, Uzytkownik uzytkownik, Cel cel) {
-        this.terminRaportu = terminRaportu;
+    public RaportOszczednosci( BigDecimal zaosczedzonaKwota, Uzytkownik uzytkownik, Cel cel) {
+        this.terminRaportu = Timestamp.valueOf(LocalDateTime.now());
         this.zaosczedzonaKwota = zaosczedzonaKwota;
         this.uzytkownik = uzytkownik;
         this.cel = cel;
@@ -40,12 +42,12 @@ public class RaportOszczednosci {
         this.id = id;
     }
 
-    public LocalDateTime getTerminRaportu() {
+    public Timestamp getTerminRaportu() {
         return terminRaportu;
     }
 
     public void setTerminRaportu(LocalDateTime terminRaportu) {
-        this.terminRaportu = terminRaportu;
+        this.terminRaportu = Timestamp.valueOf(LocalDateTime.now());
     }
 
     public BigDecimal getZaosczedzonaKwota() {

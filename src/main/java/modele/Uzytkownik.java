@@ -11,7 +11,7 @@ public class Uzytkownik {
     @Column(nullable = false)
     private int id;
     @Column(nullable = false)
-    private String name;
+    private String nazwa;
     @Column(nullable = false, unique = true)
     private String email;
     @Column(nullable = false)
@@ -30,8 +30,8 @@ public class Uzytkownik {
     public Uzytkownik() {
     }
 
-    public Uzytkownik(String name, String email, String haslo) {
-        this.name = name;
+    public Uzytkownik(String nazwa, String email, String haslo) {
+        this.nazwa = nazwa;
         this.email = email;
         this.haslo = haslo;
     }
@@ -45,11 +45,11 @@ public class Uzytkownik {
     }
 
     public String getName() {
-        return name;
+        return nazwa;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String nazwa) {
+        this.nazwa = nazwa;
     }
 
     public String getEmail() {

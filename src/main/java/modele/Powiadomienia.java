@@ -11,7 +11,7 @@ public class Powiadomienia {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String wiadomosc;
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false, updatable = false, columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime wygenerowany_czas;
     private boolean czyPrzeczytane = false;
 
