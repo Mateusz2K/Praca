@@ -1,0 +1,77 @@
+package zarzadzanieFinansami.JWT;
+
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+import org.springframework.web.filter.OncePerRequestFilter;
+import zarzadzanieFinansami.serwisy.DetaleUzytkownikówSerwis; // Upewnij się, że ścieżka jest poprawna
+
+import java.io.IOException;
+
+@Component // Ważne, aby Spring mógł to wstrzyknąć do SecurityConfig
+public class AutoryzacjaTokenuFiltr extends OncePerRequestFilter {
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @Autowired
+    private DetaleUzytkownikówSerwis detaleUzytkownikowSerwis; // Twój UserDetailsService
+
+    private static final Logger logger = LoggerFactory.getLogger(AutoryzacjaTokenuFiltr.class);
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException {
+        logger.debug("AutoryzacjaTokenuFiltr: Przetwarzanie żądania dla URI: {}", request.getRequestURI());
+        try {
+            String jwt = parseJwt(request);
+            if (jwt != null) {
+                logger.debug("AutoryzacjaTokenuFiltr: Wyodrębniono JWT: {}", jwt);
+                if (jwtUtil.validateJwtToken(jwt)) {
+                    String username = jwtUtil.getUsernameFromJwtToken(jwt);
+                    logger.debug("AutoryzacjaTokenuFiltr: Użytkownik z tokenu: {}", username);
+
+                    UserDetails userDetails = detaleUzytkownikowSerwis.loadUserByUsername(username);
+                    UsernamePasswordAuthenticationToken authentication =
+                            new UsernamePasswordAuthenticationToken(userDetails,
+                                    null,
+                                    userDetails.getAuthorities());
+
+                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                    logger.debug("AutoryzacjaTokenuFiltr: Ustawiono uwierzytelnienie dla użytkownika: {}", username);
+                } else {
+                    logger.warn("AutoryzacjaTokenuFiltr: Walidacja tokenu JWT nie powiodła się.");
+                }
+            } else {
+                logger.debug("AutoryzacjaTokenuFiltr: Nie znaleziono tokenu JWT w żądaniu.");
+            }
+        } catch (Exception e) {
+            logger.error("AutoryzacjaTokenuFiltr: Nie można ustawić uwierzytelnienia użytkownika.", e); // Loguj cały wyjątek
+        }
+
+        filterChain.doFilter(request, response);
+    }
+
+    private String parseJwt(HttpServletRequest request) {
+        String headerAuth = request.getHeader("Authorization");
+
+        if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
+            return headerAuth.substring(7);
+        }
+        logger.trace("AutoryzacjaTokenuFiltr: Nagłówek Authorization nie zawiera tokenu Bearer. Nagłówek: '{}'", headerAuth);
+        return null;
+    }
+}

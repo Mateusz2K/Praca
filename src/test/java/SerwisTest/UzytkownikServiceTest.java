@@ -1,13 +1,13 @@
 package SerwisTest;
 
-import magazyn.MagazynUzytkownika;
-import modele.Uzytkownik;
+import zarzadzanieFinansami.magazyn.MagazynUzytkownika;
+import zarzadzanieFinansami.modele.Uzytkownik;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import serwisy.UzytkownikUsługa;
+import zarzadzanieFinansami.serwisy.UzytkownikUsluga;
 
 import java.util.Optional;
 
@@ -21,7 +21,7 @@ public class UzytkownikServiceTest {
     private MagazynUzytkownika magazynUzytkownika;
 
     @InjectMocks
-    private UzytkownikUsługa uzytkownikUsługa; // Klasa, w której jest metoda znajdzUzytkownikPrzezEmail
+    private UzytkownikUsluga uzytkownikUsługa; // Klasa, w której jest metoda znajdzUzytkownikPrzezEmail
 
     @Test
     public void testZnajdzUzytkownikPrzezEmail_ZnalezionoUzytkownika() {
